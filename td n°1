@@ -1,0 +1,121 @@
+#exercice 16
+
+def digits(a):                    #transforme un nombre en chaîne de caractères
+    l=[]
+    while a>=1:
+        l.append(a%10)
+        a=a//10
+    l.reverse()
+    return l
+assert digits(325)==[3,2,5]
+
+
+
+
+def solve(n):
+   l=digits(2**n)
+   s=0
+   for i in l:
+      s+=i
+   return s
+assert solve(15)==26
+
+
+#exercice 22
+
+def tri():
+  f = open('names.txt','r')
+  for ligne in f:
+     l=sorted(ligne.split(","),key=str.upper)
+  return l      
+
+def nombre(l):
+     
+     L=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+     B=[]
+     P=[]
+     for k in l:
+         B=[]
+         for i in k:
+               for j in L:
+                    if j==i:
+                        a=L.index(j)+1                
+                        B.append(a)
+         a=sum(B)
+         P+=[a]
+     return P
+assert nombre(['COLIN'])==[53]
+
+     
+def sum(l):
+     s=0
+     for i in l:
+          s+=i
+     return s
+
+l=tri()                        
+def solve(c):
+     P=[]
+     M=nombre(c)
+     for k in range(len(M)):
+
+
+          a=k+1
+          P.append(a*M[k])
+     return sum(P)
+assert solve(l)==871198282
+
+#exercice 55
+
+def digits2(a):
+    l=[]
+    while a>=1:
+        l.append(a%10)
+        a=a//10
+    return l
+
+def listtonum(P):
+    res=0
+    n=len(P)-1
+    for k in P:
+        res+=(10**n)*k
+        n=n-1
+    return res
+assert listtonum([1,6,8,9,1])==16891
+
+
+def testpalindrome(P):
+    p=listtonum(P)
+    P.reverse()
+    q=listtonum(P)
+    s=p+q
+    A=digits2(s)
+    a=listtonum(A)
+    if s==a:
+        return 1
+    else:
+        return 0
+assert testpalindrome([4,7])==1
+assert testpalindrome([7,5])==0
+
+
+def solve(n):
+    res=0
+    for k in range(n+1): 
+        n=1
+        p=k
+        while n <250:
+            P=digits2(p)
+            P.reverse()
+            q=listtonum(P)
+            s=p+q
+            p=s
+            P=digits2(s)
+            if testpalindrome(P)==0:
+                n+=1
+            else:
+                n=300
+        if testpalindrome(P)==0:
+                res+=1
+    return res
+
